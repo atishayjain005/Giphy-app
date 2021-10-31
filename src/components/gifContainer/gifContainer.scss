@@ -1,0 +1,15 @@
+.gif{
+
+  cursor: pointer;
+}
+
+.container{
+    padding: 2rem 0;
+
+    .gifHolder{
+        display:flex;
+        justify-content: center;
+        padding:1rem 5rem;
+        flex-wrap:wrap;
+        gap:1rem;
+}}
