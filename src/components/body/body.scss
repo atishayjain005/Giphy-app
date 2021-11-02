@@ -1,3 +1,12 @@
+@media only screen and (max-width: 375px){
+  #wrapperB{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+}
 #search{
     width: 30rem;
     font-size: 1rem;
@@ -15,6 +24,10 @@
   &:focus,&:hover{
       outline: none;
       border: solid 3px #a7489b;
+       }
+
+       @media only screen and (max-width: 375px){
+         width: 90%;
        }
     
 }
@@ -40,5 +53,9 @@ button{
   &:focus,&:hover{
 
     border: solid 3px rgba(255, 255, 255, 0.342);
+    }
+    @media only screen and (max-width: 375px){
+      height: fit-content;
+      margin: 0 0 0 2px;
     }
 }
