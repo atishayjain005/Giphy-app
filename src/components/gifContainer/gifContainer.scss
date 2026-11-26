@@ -1,19 +1,6 @@
-.gif{
-
-  cursor: pointer;
-}
-
-.container{
-    padding: 2rem 0;
-
-    .gifHolder{
-        display:flex;
-        justify-content: center;
-        padding:1rem 5rem;
-        flex-wrap:wrap;
-        gap:1rem;
-
-        @media only screen and (max-width: 375px){
-          flex-direction: column;
-        }
-}}
+.container { width: 100%; max-width: 80rem; padding: 2rem 1rem; }
+.gifHolder { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 1.5rem; }
+.gif { width: 100%; max-width: 20rem; min-width: 0; border: 1px solid #666; border-radius: .7rem; padding: 1rem; background: #242424; }
+.gif img { display: block; width: 100%; height: 200px; object-fit: contain; margin-bottom: 1rem; }
+.gif p { min-height: 1.5em; }
+a { color: #efb8e6; }

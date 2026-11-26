@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# GIF Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React 17 demo for searching GIPHY, browsing trending GIFs and copying image links.
 
-## Available Scripts
+## Local development
 
-In the project directory, you can run:
+Use Node 22 and npm. Install with `npm ci --ignore-scripts`.
+Copy `.env.example` to `.env.local`, supply your own restricted GIPHY application key, then run `NODE_OPTIONS=--openssl-legacy-provider npm start`.
+The key is embedded in the browser bundle: environment variables do not make it secret. Without a key, the app shows a configuration message and sends no API requests.
 
-### `npm start`
+A key was present in historical commits. Its owner must rotate/restrict it before live use. Removing it from current source does not revoke it. Never paste private credentials into this frontend.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Behavior
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Submit a trimmed query with Enter or Search. Trending clears the query.
+- Requests use a 12-second timeout, cancel obsolete searches and ignore late responses.
+- Loading, failure/retry and no-results states are explicit. Results are limited to 25 with G rating requested from GIPHY; external content is not independently reviewed.
+- Each card has a keyboard-accessible copy button. Success appears only after the clipboard resolves. A direct image link remains available when clipboard permission is denied or unsupported.
+- Clipboard support normally requires HTTPS or localhost.
 
-### `npm test`
+## Validation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+npm run lint
+CI=true npm test -- --watchAll=false --runInBand
+NODE_OPTIONS=--openssl-legacy-provider npm run build
+```
 
-### `npm run build`
+Eight regression tests cover keyboard search/reset, missing configuration, malformed results, request retry, stale responses, timeout and clipboard success/failure. Network and clipboard APIs are mocked in tests. Local production UI was checked at 320, 768 and 1280 pixels for search/reset and horizontal overflow; populated live GIF results remain unverified without a replacement key.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deployment and limitations
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`npm run build` outputs `build/`, suitable for an existing free static host. Set the browser-visible key at build time and rebuild. No hosting resource is provisioned by this repository. GitHub Pages was not configured during the November 27, 2026 inspection. A preview integration, if discovered on the PR, is distinct from production deployment.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The legacy Create React App 4 toolchain needs the temporary OpenSSL option on Node 22. It has outstanding dependency audit findings and is not production-ready. Dart Sass replaces the obsolete native compiler without changing the framework. A supported build-tool migration, credential rotation and live service verification are release prerequisites. No paid APIs or hosting have been provisioned.

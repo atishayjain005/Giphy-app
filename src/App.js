@@ -9,13 +9,13 @@ function App() {
   const [search, setSearch] = useState("");
 
   return (
-    <div id="myApp" className="App">
+    <main id="myApp" className="App">
       <div id="mainWrapper">
         <Heading />
         <Body search={search} setSearch={setSearch} />
       </div>
       <GifContainer search={search} />
-    </div>
+    </main>
   );
 }
 
