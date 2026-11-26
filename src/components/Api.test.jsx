@@ -12,7 +12,7 @@ test('missing configuration does not send a request', async () => {
   expect(fetch).not.toHaveBeenCalled();
 });
 test('filters malformed and duplicate results', () => {
-  expect(normalizeGifs({data:[null, {}, gif('cat'), gif('cat'), {id:'bad',images:{fixed_height:{url:'javascript:alert(1)'}}}]})).toEqual([gif('cat')]);
+  expect(normalizeGifs({data:[null, {}, gif('cat'), gif('cat'), {id:'bad',images:{fixed_height:{url:'http://unsafe.example/gif'}}}]})).toEqual([gif('cat')]);
   expect(() => normalizeGifs({data:null})).toThrow();
 });
 test('shows errors and supports retry to an empty result', async () => {
